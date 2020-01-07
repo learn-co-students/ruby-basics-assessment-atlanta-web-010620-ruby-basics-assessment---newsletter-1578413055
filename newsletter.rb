@@ -4,7 +4,7 @@
 
 CAMPUS = {
   "name": "DC",
-  "address": "1440 G St NW, Washington, DC 20005",
+  "address": "1440 G St NW, Washington, DC 20005"
 }
 DATE = "Nov 20, 2019"
 
@@ -24,13 +24,38 @@ ARTICLES = [
 #########################
 # Methods to generate the newsletter
 #########################
-
+# ========================================================================================================FIX THIS 
 def calculate_recipients
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+
+  #   create an array to be returned 
+  array = [] 
+
+  #   create a placeholder variable that will change if names match 
+  match = false 
+  # iterate through each array and see if their values match 
+  SUBSCRIBERS.each do |subscribers| 
+      UNSUBSCRIBED.each do |unsubscribed| 
+      # if their values match, change match to true
+          if subscribers == unsubscribed 
+              match = true 
+          end
+      end 
+  # if no values matched for the given element of SUBSCRIBERS, then add that element to our array to be returned 
+      if match == false 
+          array << subscribers 
+      else 
+      # if the value did match, don't add it, but instead reset match's value for the next iteration 
+      match = false 
+      end 
+  end 
+  # print the array to be returned for debugging purposes 
+  pp array 
+  return array 
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
@@ -38,21 +63,36 @@ def print_recipients
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
+
+  # use the join method to join together the array returned by calculate_recipients 
+  calculate_recipients.join(", ")
 end
 
 def print_one_article(article)
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+
+  # print the article details according to the provided example. 
+  puts article[:title]
+  puts "by: #{article[:author]}"
+  puts article[:text]
+  puts ""
 end
 
 def print_many_articles(articles)
   # Write a method that will take in an array of article hashes
   # and format each one using the print_one_article method
+  articles.each do |article|
+    print_one_article(article)
+  end
+
 end
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+
+  # changed [:name] from ["name"]
+  "Flatiron #{CAMPUS[:name]}"
 end
 
 def format_subject
@@ -78,13 +118,13 @@ def print_newsletter(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
 
-  end
+  # end
 end
 
 def run
   # We want our program to print three articles by default,
   # but we can change that number here
-  print_newsletter("3")
+  print_newsletter(3)
 end
 
 # When we run "ruby newsletter.rb" in the command line,
