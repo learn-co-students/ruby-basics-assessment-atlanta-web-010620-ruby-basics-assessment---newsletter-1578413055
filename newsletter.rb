@@ -25,9 +25,13 @@ ARTICLES = [
 # Methods to generate the newsletter
 #########################
 
-def calculate_recipients
+def calculate_recipients(UNSUBSCRIBED)
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+  SUBSCRIBERS.each do |value|
+    UNSUBSCRIBED.exclude? value
+    remain_subs << value
+  end
 end
 
 def first_n_articles(number_of_articles
@@ -38,12 +42,14 @@ def print_recipients
   # Write a method that uses the output of calculate_recipients
   # and returns a list of emails separated by commas
   # Ex) "abc@email.com, def@email.com, ghi@email.com"
+print remain_subs.join(",")
 end
 
 def print_one_article(article)
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+  print ARTICLES["Title"]["author"]["text"]
 end
 
 def print_many_articles(articles)
